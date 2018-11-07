@@ -231,14 +231,11 @@ function comprovarDireccionsFantasmes(fantasma) {
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
-  // While there remain elements to shuffle...
   while (0 !== currentIndex) {
 
-    // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
 
-    // And swap it with the current element.
     temporaryValue = array[currentIndex];
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
@@ -260,13 +257,23 @@ function preguntaPosicioBuida(pos, fantasma){
         case 3:
             if (map[fantasma.y + 1][fantasma.x] === true) return true;
             break;
+        
     }
+    return false;
 }
 function triarDireccioFantasmes(fantasma){
     var direccions = shuffle([0,1,2,3]);
-    //direccions.sort();
+    var y=fantasma.y;
+    var x=fantasma.x;
     for(var i=0;i<direccions.length;i++){
-        if(preguntaPosicioBuida(direccions[i], fantasma)===true){
+
+        switch(direccions[i]){
+            case 0: x=x-1;break;
+            case 1: x=x+1;break;
+            case 2: y=y-1;break;
+            case 3: y=y+1;break;
+        }
+        if(checkIfSpawnTrue(y, x, map)){
             return direccions[i];
         }
     }
