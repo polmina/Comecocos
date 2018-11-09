@@ -3,7 +3,7 @@ var map;
 var nFant = 3;
 
 function fantasmesStart(mapa) {
-    fantasmes=undefined;
+    fantasmes = undefined;
     fantasmes = [nFant];
     for (var i = 0; i < nFant; i++) {
         var posOK = false, x, y;
@@ -13,316 +13,123 @@ function fantasmesStart(mapa) {
             posOK = checkIfSpawnTrue(y, x, mapa);
             //alert(i + " " + y + " " + x + mapa[y][x]);
         }
-        fantasmes[i] = {y: y, x: x, dir: parseInt(Math.random() * 4), id: i+1};
+        fantasmes[i] = {y: y, x: x, dir: parseInt(Math.random() * 4), id: i + 1};
 
     }
     //fantasmes = [{y: 20, x: 10, dir:3, id:1}/*, {y: 1, x: 1, dir:1, id:2}*/]; //0:esquerra, 1:dreta, 2:adalt, 3:abaix
 }
 
-/*
-function comprovarDireccionsFantasmes(fantasma) {
-    var result=0;
-    switch (fantasma.dir) {
-        case 0:
-            if (map[fantasma.y][fantasma.x - 1] === true) {
-                    if(map[fantasma.y-1][fantasma.x] === true || map[fantasma.y+1][fantasma.x] === true){
-                        var n=Math.random() * 3;
-                        switch(n){
-                            case 0:
-                                return 0;
-                                break;
-                            case 1:
-                                if(map[fantasma.y-1][fantasma.x] === true)
-                                {return 2;}
-                                break;
-                            case 2:
-                                if(map[fantasma.y+1][fantasma.x] === true)
-                                {return 3;}
-                                break;
-                        }
-                    }
-                    else{
-                        return 0;
-                    }
-            } else {
-                fantasma.dir = parseInt(Math.random() * 4);
-                result=comprovarDireccionsFantasmes(fantasma);
-            }
-            break;
-            
-        case 1:
-            if (map[fantasma.y][fantasma.x + 1] === true) {
-                if(map[fantasma.y-1][fantasma.x] === true || map[fantasma.y+1][fantasma.x] === true){
-                        var n=Math.random() * 3;
-                        switch(n){
-                            case 0:
-                                return 1;
-                                break;
-                            case 1:
-                                if(map[fantasma.y-1][fantasma.x] === true)
-                                {return 2;}
-                                break;
-                            case 2:
-                                if(map[fantasma.y+1][fantasma.x] === true)
-                                {return 3;}
-                                break;
-                        }
-                    }
-                    else{
-                        return 1;
-                    }
-            } else {
-                fantasma.dir = parseInt(Math.random() * 4);
-                result=comprovarDireccionsFantasmes(fantasma);
-            }
-            break;
-        case 2:
-            if (map[fantasma.y - 1][fantasma.x] === true) {
-                if(map[fantasma.y][fantasma.x-1] === true || map[fantasma.y][fantasma.x+1] === true){
-                        var n=Math.random() * 3;
-                        switch(n){
-                            case 0:
-                                return 2;
-                                break;
-                            case 1:
-                                if(map[fantasma.y][fantasma.x-1] === true)
-                                {return 0;}
-                                break;
-                            case 2:
-                                if(map[fantasma.y][fantasma.x+1] === true)
-                                {return 1;}
-                                break;
-                        }
-                    }
-                    else{
-                        return 2;
-                    }
-            } else {
-                fantasma.dir = parseInt(Math.random() * 4);
-                result=comprovarDireccionsFantasmes(fantasma);
-            }
-            break;
-            
-        case 3:
-            if (map[fantasma.y + 1][fantasma.x] === true) {
-               if(map[fantasma.y][fantasma.x-1] === true || map[fantasma.y][fantasma.x+1] === true){
-                        var n=Math.random() * 3;
-                        switch(n){
-                            case 0:
-                                return 3;
-                                break;
-                            case 1:
-                                if(map[fantasma.y][fantasma.x-1] === true)
-                                {return 0;}
-                                break;
-                            case 2:
-                                if(map[fantasma.y][fantasma.x+1] === true)
-                                {return 1;}
-                                break;
-                        }
-                    }
-                    else{
-                        return 3;
-                    }
-            } else {
-                fantasma.dir = parseInt(Math.random() * 4);
-                result=comprovarDireccionsFantasmes(fantasma);
-            }
-            break;
+
+function barrejarArray(array) {
+    var index = array.length, temp, indexAleatori;
+    while (0 !== index) {
+        indexAleatori = Math.floor(Math.random() * index);
+        index -= 1;
+        temp = array[index];
+        array[index] = array[indexAleatori];
+        array[indexAleatori] = temp;
     }
-    return result;
+    return array;
 }
-*/
 
- 
-
-/*
-function comprovarDireccions(fantasma) {
-    switch (fantasma.dir) {
+function retornarDireccioContraria(dir) {
+    switch (dir) {
         case 0:
-            if (map[fantasma.y][fantasma.x - 1] === true) {
-                return 0;
-            } else if (map[fantasma.y + 1][fantasma.x] === true) {
-                return 3;
-            } else if (map[fantasma.y - 1][fantasma.x] === true) {
-                return 2;
-            } else if (map[fantasma.y][fantasma.x + 1] === true) {
-                return 1;
-            }
-            break;
+            return 1;
         case 1:
-            if (map[fantasma.y][fantasma.x + 1] === true) {
-                return 1;
-            } else if (map[fantasma.y - 1][fantasma.x] === true) {
-                return 2;
-            } else if (map[fantasma.y + 1][fantasma.x] === true) {
-                return 3;
-            } else if (map[fantasma.y][fantasma.x - 1] === true) {
-                return 0;
-            }
-            break;
+            return 0;
         case 2:
-            if (map[fantasma.y - 1][fantasma.x] === true) {
-                return 2;
-            } else if (map[fantasma.y][fantasma.x + 1] === true) {
-                return 1;
-            } else if (map[fantasma.y][fantasma.x - 1] === true) {
-                return 0;
-            } else if (map[fantasma.y + 1][fantasma.x] === true) {
-                return 3;
-            }
-            break;
+            return 3;
         case 3:
-            if (map[fantasma.y + 1][fantasma.x] === true) {
-                return 3;
-            } else if (map[fantasma.y][fantasma.x - 1] === true) {
-                return 0;
-            } else if (map[fantasma.y][fantasma.x + 1] === true) {
-                return 1;
-            } else if (map[fantasma.y - 1][fantasma.x] === true) {
-                return 2;
-            }
-            break;
+            return 2;
     }
-}*/
-/*
-function comprovarDireccionsFantasmes(fantasma) {
-    var result=0;
-    switch (fantasma.dir) {
-        case 0:
-            if (map[fantasma.y][fantasma.x - 1] === true) {
-                return 0;
-            } else {
-                return triarDireccioFantasmes(fantasma);
-                fantasma.dir = parseInt(Math.random() * 4);
-                result=comprovarDireccionsFantasmes(fantasma);
-            }
-            break;
-            
-        case 1:
-            if (map[fantasma.y][fantasma.x + 1] === true) {
-                return 1;
-            } else {
-                fantasma.dir = parseInt(Math.random() * 4);
-                result=comprovarDireccionsFantasmes(fantasma);
-            }
-            break;
-        case 2:
-            if (map[fantasma.y - 1][fantasma.x] === true) {
-                return 2;
-            } else {
-                fantasma.dir = parseInt(Math.random() * 4);
-                result=comprovarDireccionsFantasmes(fantasma);
-            }
-            break;
-            
-        case 3:
-            if (map[fantasma.y + 1][fantasma.x] === true) {
-                return 3;
-            } else {
-                fantasma.dir = parseInt(Math.random() * 4);
-                result=comprovarDireccionsFantasmes(fantasma);
-            }
-            break;
-    }
-    return result;
 }
- */
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
-  while (0 !== currentIndex) {
-
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
-function preguntaPosicioBuida(pos, fantasma){
-    switch(pos){
-        case 0:
-            if (map[fantasma.y][fantasma.x - 1] === true) return true;
-            break;
-        case 1:
-             if (map[fantasma.y][fantasma.x + 1] === true) return true;
-            break;
-        case 2:
-             if (map[fantasma.y - 1][fantasma.x] === true) return true;
-            break;
-        case 3:
-            if (map[fantasma.y + 1][fantasma.x] === true) return true;
-            break;
-        
-    }
-    return false;
-}
-function triarDireccioFantasmes(fantasma){
-    var direccions = shuffle([0,1,2,3]);
-    var y=fantasma.y;
-    var x=fantasma.x;
-    for(var i=0;i<direccions.length;i++){
-
-        switch(direccions[i]){
-            case 0: x=x-1;break;
-            case 1: x=x+1;break;
-            case 2: y=y-1;break;
-            case 3: y=y+1;break;
+function cruillaTrobada(fantasma) {
+    var direccions = barrejarArray([0, 1, 2, 3]);
+    var a = direccions.indexOf(retornarDireccioContraria(fantasma.dir));
+    var direccioContraria = direccions[a];
+    direccions.splice(a, 1);
+    var y, x;
+    for (var i = 0; i < direccions.length; i++) {
+        y = fantasma.y;
+        x = fantasma.x;
+        switch (direccions[i]) {
+            case 0:
+                x--;
+                break;
+            case 1:
+                x++;
+                break;
+            case 2:
+                y--;
+                break;
+            case 3:
+                y++;
+                break;
         }
-        if(checkIfSpawnTrue(y, x, map)){
+        if (checkIfSpawnTrue(y, x, map)) {
             return direccions[i];
         }
     }
+    return direccioContraria;
 }
 
-function comprovarDireccionsFantasmes(fantasma) {
-    var result=0;
+function comprovarSeguentPas(fantasma) {
     switch (fantasma.dir) {
         case 0:
-            if (map[fantasma.y][fantasma.x - 1] === true) {
-                return 0;
+            if (checkIfSpawnTrue(fantasma.y, fantasma.x - 1, map)) {
+                if (checkIfSpawnTrue(fantasma.y - 1, fantasma.x, map) || checkIfSpawnTrue(fantasma.y + 1, fantasma.x, map)) {
+                    return cruillaTrobada(fantasma);
+                } else {
+                    return 0;
+                }
             } else {
-                return triarDireccioFantasmes(fantasma);
+                return cruillaTrobada(fantasma);
             }
             break;
-            
+
         case 1:
-            if (map[fantasma.y][fantasma.x + 1] === true) {
-                return 1;
+            if (checkIfSpawnTrue(fantasma.y, fantasma.x - 1, map)) {
+                if (checkIfSpawnTrue(fantasma.y - 1, fantasma.x, map) || checkIfSpawnTrue(fantasma.y + 1, fantasma.x, map)) {
+                    return cruillaTrobada(fantasma);
+                } else {
+                    return 1;
+                }
             } else {
-                fantasma.dir = parseInt(Math.random() * 4);
-                result=comprovarDireccionsFantasmes(fantasma);
+                return cruillaTrobada(fantasma);
             }
             break;
         case 2:
-            if (map[fantasma.y - 1][fantasma.x] === true) {
-                return 2;
+            if (checkIfSpawnTrue(fantasma.y - 1, fantasma.x, map)) {
+                if (checkIfSpawnTrue(fantasma.y, fantasma.x - 1, map) || checkIfSpawnTrue(fantasma.y, fantasma.x + 1, map)) {
+                    return cruillaTrobada(fantasma);
+                } else {
+                    return 2;
+                }
             } else {
-                fantasma.dir = parseInt(Math.random() * 4);
-                result=comprovarDireccionsFantasmes(fantasma);
+                return cruillaTrobada(fantasma);
             }
             break;
-            
+
         case 3:
-            if (map[fantasma.y + 1][fantasma.x] === true) {
-                return 3;
+            if (checkIfSpawnTrue(fantasma.y + 1, fantasma.x, map)) {
+                if (checkIfSpawnTrue(fantasma.y, fantasma.x - 1, map) || checkIfSpawnTrue(fantasma.y, fantasma.x + 1, map)) {
+                    return cruillaTrobada(fantasma);
+                } else {
+                    return 3;
+                }
             } else {
-                fantasma.dir = parseInt(Math.random() * 4);
-                result=comprovarDireccionsFantasmes(fantasma);
+                return cruillaTrobada(fantasma);
             }
             break;
     }
-    return result;
 }
 
-function movimentFantasmes() {
+function movimentFantasmes(mapa) {
+    map = mapa;
     for (var i = 0; i < fantasmes.length; i++) {
         map[fantasmes[i].y][fantasmes[i].x] = true;
-        switch (comprovarDireccionsFantasmes(fantasmes[i])) {
+        switch (comprovarSeguentPas(fantasmes[i])) {
             case 0:
                 fantasmes[i].dir = 0;
                 fantasmes[i].x--;
@@ -340,16 +147,7 @@ function movimentFantasmes() {
                 fantasmes[i].y++;
                 break;
         }
-    }
-    return fantasmes;
-}
-function posFantasmes(mapa) {
-    map = mapa;
-    movimentFantasmes();
-    for (var i = 0; i < fantasmes.length; i++) {
-        // alert("y:"+ fantasmes[i].y +" x:"+ fantasmes[i].x);
         map[fantasmes[i].y][fantasmes[i].x] = fantasmes[i].id;
-        //alert(fantasmes[i].y+" "+fantasmes[i].x);
     }
     return map;
 }

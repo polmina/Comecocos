@@ -54,7 +54,7 @@ function mapReset(){
 function prepMap(){
     
     map = posJugador(map);
-    map = posFantasmes(map);
+    map = movimentFantasmes(map);
 
     return map;
 }
