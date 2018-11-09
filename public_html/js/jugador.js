@@ -7,54 +7,80 @@ function jugadorStart(mapa) {
             y = parseInt(Math.random() * mapa.length);
             x = parseInt(Math.random() * mapa[y].length);
             posOK = checkIfSpawnTrue(y, x, mapa);
-            //alert(i + " " + y + " " + x + mapa[y][x]);
         }
-        jugador = {y: y, x: x, dir: parseInt(Math.random() * 4), id: 0};
+        var temp=parseInt(Math.random() * 4);
+        jugador = {y: y, x: x, dir: temp, dirDesitjada:temp, id: 0};
 
     
-//0:esquerra, 1:dreta, 2:adalt, 3:abaix
 }
-function comprovarDireccionsJugador() {
-    switch (jugador.dir) {
+function comprovarDireccionsJugador(direccio) {
+    switch (direccio) {
         case 0:
-            if (map[jugador.y][jugador.x - 1] === true) {
+            if (map[jugador.y][jugador.x - 1] === true ) {
                 return true;
             } 
-            /*else if(map[jugador.y][jugador.x - 1]>0){
+            else if(map[jugador.y][jugador.x - 1]>0){
                 return false;
-            }*/
+            }
             break;
             
         case 1:
             if (map[jugador.y][jugador.x + 1] === true) {
                 return true;
             } 
-            /*else if(map[jugador.y][jugador.x + 1]>0){
+            else if(map[jugador.y][jugador.x + 1]>0){
                 return false;
-            }*/
+            }
             break;
         case 2:
             if (map[jugador.y - 1][jugador.x] === true) {
                 return true;
             } 
-            /*else if(map[jugador.y - 1][jugador.x]>0){
+            else if(map[jugador.y - 1][jugador.x]>0){
                 return false;
-            }*/
+            }
             break;
             
         case 3:
             if (map[jugador.y + 1][jugador.x] === true) {
                 return true;
             } 
-            /*else if(map[jugador.y + 1][jugador.x]>0){
+            else if(map[jugador.y + 1][jugador.x]>0){
                 return false;
-            }*/
+            }
             break;
     }
 }
-function movimentJugador() {
+function comprovarDireccioDesitjadaJugador(dirDesitjada){
+    switch (dirDesitjada) {
+        case 0:
+            if (map[jugador.y][jugador.x - 1] === true) {
+                jugador.dir=dirDesitjada;
+            } 
+            break;
+        case 1:
+            if (map[jugador.y][jugador.x + 1] === true) {
+                 jugador.dir=dirDesitjada;
+            } 
+            break;
+        case 2:
+            if (map[jugador.y - 1][jugador.x] === true) {
+                jugador.dir=dirDesitjada;
+            } 
+            break;
+            
+        case 3:
+            if (map[jugador.y + 1][jugador.x] === true) {
+                 jugador.dir=dirDesitjada;
+            } 
+            break;
+    }
+}
+function movimentJugador(mapa) {
         var moviment=true;
-        moviment=comprovarDireccionsJugador(jugador);
+        map = mapa;
+        comprovarDireccioDesitjadaJugador(jugador.dirDesitjada);
+        moviment=comprovarDireccionsJugador(jugador.dir);
         if(moviment===true){
             map[jugador.y][jugador.x] = true;
             switch (jugador.dir) {
@@ -71,20 +97,17 @@ function movimentJugador() {
                 jugador.y++;
                 break;
         }
+        map[jugador.y][jugador.x] = jugador.id;
     }
     else if(moviment===false){
         alert("Has perdut");
-        mapReset();
+        setJugadorViu(false);
+        //mapReset();
     }
-            
-}
-
-function posJugador(mapa) {
-    map = mapa;
-    movimentJugador(); 
-    map[jugador.y][jugador.x] = jugador.id;
     return map;
 }
+
+
 
 document.onkeypress = function(evt) {
     evt = evt || window.event;
@@ -92,16 +115,16 @@ document.onkeypress = function(evt) {
     var charStr = String.fromCharCode(charCode);
     switch(charStr){
         case 'w':
-            jugador.dir=2;
+            jugador.dirDesitjada=2;
             break;
         case 'a':
-            jugador.dir=0;
+            jugador.dirDesitjada=0;
             break;
         case 's':
-            jugador.dir=3;
+            jugador.dirDesitjada=3;
             break;
         case 'd':
-            jugador.dir=1;
+            jugador.dirDesitjada=1;
             break;
     }
 };

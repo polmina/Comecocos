@@ -1,5 +1,4 @@
-var fantasmes;
-var map;
+var fantasmes, map, jugadorViu, puntuacio
 function createMap() {
     //map=undefined;
     map = [
@@ -36,31 +35,27 @@ function createMap() {
         [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]   
         
     ];
-    /*
-    for(var i=0;i<31;i++){
-        for(var u=0;u<28;u++){
-            map[i][u]="["+i+","+u+"]";
-        }
-    }*/
+
 }
 function mapReset(){
-    
+    puntuacio=0;
+    jugadorViu=true;
     createMap();
     jugadorStart(map);
     fantasmesStart(map);
-    printMap();
+    printMap(map);
 
 }
 function prepMap(){
     
-    map = posJugador(map);
+    map = movimentJugador(map);
     map = movimentFantasmes(map);
 
     return map;
 }
 async function printMap(map) {
     var string;
-    while(true){
+    while(jugadorViu){
     string="";
     map=prepMap();
     for (i = 0; i < map.length; i++) {
@@ -86,7 +81,9 @@ async function printMap(map) {
     console.log("\n\n");
     }
     }
-
+function setJugadorViu(valor){
+    jugadorViu=valor;
+}
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
