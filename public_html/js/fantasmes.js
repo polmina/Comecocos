@@ -1,7 +1,7 @@
 var fantasmes;
 var map;
 var nFant = 3;
-
+//crea el spawn pels fantasmes
 function fantasmesStart(mapa) {
     fantasmes=undefined;
     fantasmes = [nFant];
@@ -11,15 +11,13 @@ function fantasmesStart(mapa) {
             y = parseInt(Math.random() * mapa.length);
             x = parseInt(Math.random() * mapa[y].length);
             posOK = checkIfSpawnTrue(y, x, mapa);
-            //alert(i + " " + y + " " + x + mapa[y][x]);
         }
         fantasmes[i] = {y: y, x: x, dir: parseInt(Math.random() * 4), id: i+1};
 
     }
-    //fantasmes = [{y: 20, x: 10, dir:3, id:1}/*, {y: 1, x: 1, dir:1, id:2}*/]; //0:esquerra, 1:dreta, 2:adalt, 3:abaix
 }
 
-
+//barreja el arrey de la seguent direccio del fantasma perque sigui 100% aleatori
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -35,7 +33,7 @@ function shuffle(array) {
 
   return array;
 }
-
+//retorna la direccio contraria a la que va perque tornar enrere sigui l'ultima opcio
 function retornarDireccioContraria(dir){
     switch(dir){
         case 0: return 1;
@@ -44,6 +42,7 @@ function retornarDireccioContraria(dir){
         case 3: return 2;
     }
 }
+//quan troba una cruilla decideix quina direccio prendre
 function cruillaTrobada(fantasma){
     var direccions = shuffle([0,1,2,3]);
     var a = direccions.indexOf(retornarDireccioContraria(fantasma.dir));
@@ -65,7 +64,7 @@ function cruillaTrobada(fantasma){
     }
     return direccioContraria;
 }
-
+//mira si el seguent pas es un espai en blanc o una pared(true o false)
 function comprovarSeguentPas(fantasma) {
     var result=0;
     switch (fantasma.dir) {
@@ -118,7 +117,7 @@ function comprovarSeguentPas(fantasma) {
     }
     return result;
 }
-
+//un cop decidida la direccio es fa el moviment
 function movimentFantasmes(mapa) {
     map = mapa;
     for (var i = 0; i < fantasmes.length; i++) {
@@ -144,4 +143,7 @@ function movimentFantasmes(mapa) {
         map[fantasmes[i].y][fantasmes[i].x] = fantasmes[i].id;
     }
     return mapa;
+}
+function getFantasmes(){
+    return fantasmes;
 }

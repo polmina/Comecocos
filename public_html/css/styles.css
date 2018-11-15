@@ -1,0 +1,53 @@
+hmtl{
+    width:100%;
+    height:100%;
+}
+.puntuacio{
+    position:absolute;
+    top: 20px;
+    left: 40%;
+    text-align: center;
+    float:left;
+}
+.puntuacioMaxima{
+    position:absolute;
+    top: 20px;
+    left: 60%;
+    text-align: center;
+    float:left;
+}
+#background{
+    background:url('../resources/mapa.png');
+    width:560px;
+    height:620px;
+    background-repeat: no-repeat;
+    margin-left:800px;
+    margin-top:205px;
+}
+#jugador{
+    background:url('../resources/pacman.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#vermell{
+    background:url('../resources/vermell.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#groc{
+    background:url('../resources/groc.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#blau{
+    background:url('../resources/blau.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.fitxers{
+    position:absolute;
+    width:30px;
+    height:30px;
+
+    
+}

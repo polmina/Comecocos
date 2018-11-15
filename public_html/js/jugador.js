@@ -1,5 +1,5 @@
 var jugador;
-
+//spawn del jugador, no para fins que troba una casella buida
 function jugadorStart(mapa) {
         jugador=undefined;
         var posOK = false, x, y;
@@ -10,9 +10,10 @@ function jugadorStart(mapa) {
         }
         var temp=parseInt(Math.random() * 4);
         jugador = {y: y, x: x, dir: temp, dirDesitjada:temp, id: 0};
-
-    
+        
+        
 }
+//Comprova si la seguent cel·la esta buida i decideix que fer
 function comprovarDireccionsJugador(direccio) {
     switch (direccio) {
         case 0:
@@ -51,6 +52,7 @@ function comprovarDireccionsJugador(direccio) {
             break;
     }
 }
+//quan apretes una direccio a cada torn calcula si es pot anar en aquella direccio
 function comprovarDireccioDesitjadaJugador(dirDesitjada){
     switch (dirDesitjada) {
         case 0:
@@ -76,6 +78,7 @@ function comprovarDireccioDesitjadaJugador(dirDesitjada){
             break;
     }
 }
+//un Cop triada la direccio mou el jugador
 function movimentJugador(mapa) {
         var moviment=true;
         map = mapa;
@@ -107,7 +110,7 @@ function movimentJugador(mapa) {
     return map;
 }
 
-
+//event
 
 document.onkeypress = function(evt) {
     evt = evt || window.event;
@@ -128,3 +131,6 @@ document.onkeypress = function(evt) {
             break;
     }
 };
+function getJugador(){
+    return jugador;
+}
